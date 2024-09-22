@@ -2,10 +2,10 @@
 #include "house.h"
 #include <iostream>
 #include <iomanip>
+#include <vector>
 
 using namespace std;
-House available[100];
-int count = 0;
+vector<House> available;
 
 void addHouse()
 {
@@ -34,8 +34,7 @@ void addHouse()
         cin >> price;
         house.setPrice(price);
 
-        available[count] = house;
-        count++;
+        available.push_back(house);
 
         cout << "-----------------------------------------------------" << endl;
         cin.ignore();
@@ -51,11 +50,12 @@ void addHouse()
             check = false;
         }
     }
-    while(count < 100 && check == true );
+    while(check == true );
 
 }
 void displayHouse()
 {
+    House house;
         cout << left << setw(25) << "Owner" 
             << setw(30) << "Address" 
             << setw(12) << "Bedrooms" 
@@ -63,17 +63,18 @@ void displayHouse()
 
         cout << string(77, '-') << endl;
 
-        for (int i = 0; i < count; i++)
+        for (const auto& item : available)
         {
-            cout << left << setw(25) << available[i].getOwnerName()
-                << setw(30) << available[i].getAddress()
-                << setw(12) << available[i].getBedrooms()
-                << setw(10) << available[i].getPrice() << endl;
+            cout << left << setw(25) << item.getOwnerName()
+                << setw(30) << item.getAddress()
+                << setw(12) << item.getBedrooms()
+                << setw(10) << item.getPrice() << endl;
         }
 }
 int main()
 {
-    addHouse();
-    displayHouse();
+    House house;
+    house.loadFile(available);
+    house.saveFile(available);
     system("pause");
 }

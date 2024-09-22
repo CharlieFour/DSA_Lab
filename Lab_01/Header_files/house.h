@@ -22,4 +22,7 @@ class House
         void setAddress(std::string);
         void setBedrooms(int);
         void setPrice(int);
+        //file handling
+        void loadFile(std::vector<House> &houses);
+        void saveFile(std::vector<House> &houses);
 };
