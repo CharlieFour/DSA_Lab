@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 class House
 {
     private:
@@ -24,5 +25,5 @@ class House
         void setPrice(int);
         //file handling
         void loadFile(std::vector<House> &houses);
-        void saveFile(std::vector<House> &houses);
+        void saveFile(const std::vector<House> &houses);
 };
