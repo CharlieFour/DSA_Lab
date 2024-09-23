@@ -33,6 +33,7 @@ void addHouse()
 
     do
     {
+        cin.ignore();
         cout << string(55, '-') << endl;
         cout << "Owner : ";
         getline(cin, ownerName);
@@ -46,6 +47,7 @@ void addHouse()
         cout << "Price : ";
         cin >> price;
         house.setPrice(price);
+        house.setRatio(price / bedrooms);
 
         available.push_back(house);
 
@@ -89,8 +91,9 @@ void filterHouse()
     string address;
     int bedrooms;
     int price;
-    char choice;
-    cout << "Note: The developers are working on the AI filter system so the house by location is not available at the moment." << endl;
+    float ratio;
+    int choice;
+    cout << "Note: The developers are working on the AI filter system, that the system predict the price acordingly, so the house by location is not available at the moment." << endl;
 
     cout << "1. Filter by price" << endl;
     cout << "2. Filter by bedrooms" << endl;
@@ -179,7 +182,28 @@ void filterHouse()
             }
             break;
         case 3 :
-            cout << "Note: The developer are cruntly working on AI modle that will predict the best price ratio for you." << endl;
+            cout << "Enter the price : " ;
+            cin >> price;   
+            cout << "Enter the number of bedrooms : ";
+            cin >> bedrooms; 
+            ratio = price / bedrooms;
+            for (const auto & item : available)
+            {
+                if (item.getRatio() <= ratio && item.getBedrooms() == bedrooms)
+                {
+                    cout << left << setw(25) << "Owner" 
+                        << setw(30) << "Address" 
+                        << setw(12) << "Bedrooms" 
+                        << setw(10) << "Price" << endl;
+
+                    cout << string(77, '-') << endl;
+
+                    cout << left << setw(25) << item.getOwnerName()
+                        << setw(30) << item.getAddress()
+                        << setw(12) << item.getBedrooms()
+                        << setw(10) << item.getPrice() << endl;
+                }
+            }
             break;
         default :
             cout << "Invalid choice" << endl;
@@ -187,7 +211,7 @@ void filterHouse()
 }
 void menu()
 {
-    int choice;
+    char choice;
     do
     {
         cout << "-----------------------------------------------------" << endl;
@@ -204,10 +228,13 @@ void menu()
         }
         else if (choice == '2')
         {
+            cin.ignore();
             displayHouse();
+            
         }
         else if (choice == '3')
         {
+            cin.ignore();
             filterHouse();
         }
     }

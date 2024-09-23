@@ -26,6 +26,11 @@ int House::getPrice() const
     return price;
 }
 
+float House::getRatio() const
+{
+    return ratio;
+}
+//----setters----
 void House::setOwnerName(std::string name)
 {
     ownerName = name.length() > 20 ? name.substr(0 , 20) : name;
@@ -46,7 +51,13 @@ void House::setPrice(int pri)
     price = pri;
 }
 
-void loadFile(std::vector<House> &houses)
+void House::setRatio(float r)
+{
+    ratio = r;
+}
+
+//----file handling----
+void House::loadFile(std::vector<House> &houses)
 {
     std::ifstream inFile("../Data/house_data.csv");
     if (inFile.is_open())
@@ -83,7 +94,7 @@ void loadFile(std::vector<House> &houses)
     }
 }
 
-void saveFile(const std::vector<House> &houses)
+void House::saveFile(const std::vector<House> &houses)
 {
     std::ofstream outFile("../Data/house_data.csv");
 

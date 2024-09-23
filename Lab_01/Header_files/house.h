@@ -9,6 +9,7 @@ class House
         std::string address;
         int bedrooms;
         int price;
+        float ratio;
 
     public:
         House(){}
@@ -18,11 +19,13 @@ class House
         std::string getAddress() const;
         int getBedrooms() const;
         int getPrice() const;
+        float getRatio() const;
         //setters
         void setOwnerName(std::string);
         void setAddress(std::string);
         void setBedrooms(int);
         void setPrice(int);
+        void setRatio(float);
         //file handling
         void loadFile(std::vector<House> &houses);
         void saveFile(const std::vector<House> &houses);
