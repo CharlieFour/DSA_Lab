@@ -3,6 +3,7 @@
 #include <iostream>
 #include <iomanip>
 #include <vector>
+#include <conio.h>
 
 using namespace std;
 vector<House> available;
@@ -33,6 +34,7 @@ void addHouse()
 
     do
     {
+        system("CLS");
         cin.ignore();
         cout << string(55, '-') << endl;
         cout << "Owner : ";
@@ -53,8 +55,8 @@ void addHouse()
 
         cout << string(55, '-') << endl;
         char c;
-        cout << "Do you want to add another house? (Y for yes, N for no) : ";
-        cin >> c;
+        cout << "Do you want to add another house? Press Y for yes, N for no : ";
+        c = _getch();
         if(c == 'Y' || c == 'y')	
         {
             check = true;
@@ -84,6 +86,7 @@ void displayHouse()
                 << setw(12) << item.getBedrooms()
                 << setw(10) << item.getPrice() << endl;
         }
+    system("pause");
 }
 
 void filterHouse()
@@ -93,35 +96,45 @@ void filterHouse()
     int price;
     float ratio;
     int choice;
+    int counter = 0;
     cout << "Note: The developers are working on the AI filter system, that the system predict the price acordingly, so the house by location is not available at the moment." << endl;
-
+    cout << string(77, '-') << endl;
     cout << "1. Filter by price" << endl;
     cout << "2. Filter by bedrooms" << endl;
     cout << "3. Filter by both price/size ratio" << endl;
+    cout << string(77, '-') << endl;
     cout << "Enter your choice : ";
     cin >> choice;
     switch (choice)
     {
         case 1 :
+            counter = 0;
             cout << "Enter the price max price : ";
             cin >> price;
+
+            cout << left << setw(25) << "Owner" 
+                 << setw(30) << "Address" 
+                 << setw(12) << "Bedrooms" 
+                 << setw(10) << "Price" << endl;
+            cout << string(77, '-') << endl;
+
             for (auto& item : available)
-            {
+            {   
                 if (item.getPrice() <= price)
                 {
-                    cout << left << setw(25) << "Owner" 
-                        << setw(30) << "Address" 
-                        << setw(12) << "Bedrooms" 
-                        << setw(10) << "Price" << endl;
-
-                    cout << string(77, '-') << endl;
-
+                    counter++;
                     cout << left << setw(25) << item.getOwnerName()
                         << setw(30) << item.getAddress()
                         << setw(12) << item.getBedrooms()
                         << setw(10) << item.getPrice() << endl;
                 }
             }
+            if (counter == 0)
+            {
+                cout << "No house found with the given price." << endl;
+            }
+            system("pause");
+            system("cls");
             break;
         case 2 :
             cout << "1. Specified number of rooms" << endl;
@@ -131,18 +144,19 @@ void filterHouse()
             switch (choice)
             {
                 case 1 :
+                    counter = 0;
                     cout << "Enter the number of bedrooms : ";
                     cin >> bedrooms;
+                    cout << left << setw(25) << "Owner" 
+                                 << setw(30) << "Address" 
+                                 << setw(12) << "Bedrooms" 
+                                 << setw(10) << "Price" << endl;
+                    cout << string(77, '-') << endl;
                     for (auto& item : available)
                     {
                         if (item.getBedrooms() == bedrooms)
                         {
-                            cout << left << setw(25) << "Owner" 
-                                << setw(30) << "Address" 
-                                << setw(12) << "Bedrooms" 
-                                << setw(10) << "Price" << endl;
-
-                            cout << string(77, '-') << endl;
+                            counter++;
 
                             cout << left << setw(25) << item.getOwnerName()
                                 << setw(30) << item.getAddress()
@@ -150,9 +164,16 @@ void filterHouse()
                                 << setw(10) << item.getPrice() << endl;
                         }
                     }
+                    if (counter == 0)
+                    {
+                        cout << "No house found with the given number of bedrooms." << endl;
+                    }
+                    system("pause");
+                    system("cls");
                     break;
                 case 2 :
                     int max = 0;
+                    counter = 0;
                     for (auto& item : available)
                     {
                         if (item.getBedrooms() > max)
@@ -160,50 +181,63 @@ void filterHouse()
                             max = item.getBedrooms();
                         }
                     }
-                    for (auto& item : available)
-                    {
-                        if (item.getBedrooms() == max)
-                        {
-                            cout << left << setw(25) << "Owner" 
+                    cout << left << setw(25) << "Owner" 
                                 << setw(30) << "Address" 
                                 << setw(12) << "Bedrooms" 
                                 << setw(10) << "Price" << endl;
 
-                            cout << string(77, '-') << endl;
-
+                    cout << string(77, '-') << endl;
+                    for (auto& item : available)
+                    {
+                        if (item.getBedrooms() == max)
+                        {
+                            counter++;
                             cout << left << setw(25) << item.getOwnerName()
                                 << setw(30) << item.getAddress()
                                 << setw(12) << item.getBedrooms()
                                 << setw(10) << item.getPrice() << endl;
                         }
                     }
+                    if (counter == 0)
+                    {
+                        cout << "No house found with the largest number of bedrooms." << endl;
+                    }
+                    system("pause");
+                    system("cls");
                     break;
-
             }
             break;
         case 3 :
+            counter = 0;
             cout << "Enter the price : " ;
             cin >> price;   
             cout << "Enter the number of bedrooms : ";
             cin >> bedrooms; 
             ratio = price / bedrooms;
-            for (const auto & item : available)
-            {
-                if (item.getRatio() <= ratio && item.getBedrooms() == bedrooms)
-                {
-                    cout << left << setw(25) << "Owner" 
+            cout << left << setw(25) << "Owner" 
                         << setw(30) << "Address" 
                         << setw(12) << "Bedrooms" 
                         << setw(10) << "Price" << endl;
 
-                    cout << string(77, '-') << endl;
+            cout << string(77, '-') << endl;
 
+            for (const auto & item : available)
+            {
+                if (item.getRatio() <= ratio)
+                {
+                    counter++;
                     cout << left << setw(25) << item.getOwnerName()
                         << setw(30) << item.getAddress()
                         << setw(12) << item.getBedrooms()
                         << setw(10) << item.getPrice() << endl;
                 }
             }
+            if (counter == 0)
+            {
+                cout << "No house found with the given price and number of bedrooms." << endl;
+            }
+            system("pause");
+            system("cls");
             break;
         default :
             cout << "Invalid choice" << endl;
@@ -214,6 +248,7 @@ void menu()
     char choice;
     do
     {
+        system("cls");
         cout << "-----------------------------------------------------" << endl;
         cout << "1. Add a new house" << endl;
         cout << "2. Display all houses" << endl;
@@ -234,6 +269,7 @@ void menu()
         }
         else if (choice == '3')
         {
+            system("cls");
             cin.ignore();
             filterHouse();
         }

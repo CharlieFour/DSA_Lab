@@ -59,7 +59,7 @@ void House::setRatio(float r)
 //----file handling----
 void House::loadFile(std::vector<House> &houses)
 {
-    std::ifstream inFile("../Data/house_data.csv");
+    std::ifstream inFile("Data/house_data.csv");
     if (inFile.is_open())
     {
         //declear the variables
@@ -96,7 +96,7 @@ void House::loadFile(std::vector<House> &houses)
 
 void House::saveFile(const std::vector<House> &houses)
 {
-    std::ofstream outFile("../Data/house_data.csv");
+    std::ofstream outFile("Data/house_data.csv");
 
     //Header
     outFile << "Owner name,Price,Bedrooms,City\n";
