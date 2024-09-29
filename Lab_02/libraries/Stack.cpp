@@ -1,28 +1,5 @@
-#pragma once
 #include <iostream>
-#include <type_traits>
-
-template <class itemType>
-class Stack
-{
-    private:
-        int top;
-        int maxStack;
-        itemType* items;
-
-    public:
-        Stack(int max);
-        Stack();
-        ~Stack();
-        void push(itemType newItem);
-        void pop(itemType &ite);    
-        bool isEmpty();
-        bool isFull();
-        itemType max();
-        itemType min();
-
-};
-
+#include "../libraries/Stack.h"
 
 template <class itemType>
 Stack<itemType>::Stack()
@@ -68,7 +45,7 @@ void Stack<itemType>::push(itemType value)
     }
 }
 template <class itemType>
-void Stack<itemType>::pop(itemType &ite)
+itemType Stack<itemType>::pop()
 {
     if (isEmpty())
     {
@@ -76,7 +53,7 @@ void Stack<itemType>::pop(itemType &ite)
     }
     else
     {
-        ite = items[top--];
+        return items[top--];
     }
 }
 
