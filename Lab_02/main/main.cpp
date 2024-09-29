@@ -27,6 +27,7 @@ int main()
     boolStack.push(false);
 
     boolStack.max();
+    system("pause");
 
     return 0;
 }
