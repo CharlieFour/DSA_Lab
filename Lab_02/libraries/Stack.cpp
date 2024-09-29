@@ -1,5 +1,4 @@
 #include <iostream>
-#include "../libraries/Stack.h"
 
 template <class itemType>
 Stack<itemType>::Stack()
